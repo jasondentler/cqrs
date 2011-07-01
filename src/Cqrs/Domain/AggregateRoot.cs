@@ -9,7 +9,7 @@ namespace Cqrs.Domain
     {
         private readonly List<Event> _changes = new List<Event>();
 
-        public abstract Guid Id { get; }
+        public virtual Guid Id { get; protected set; }
         public int Version { get; internal set; }
 
         public IEnumerable<Event> GetUncommittedChanges()
