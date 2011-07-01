@@ -17,3 +17,6 @@ bin
 *.swp
 *.user
 *.DS_Store
+
+#nuget packages
+Packages
