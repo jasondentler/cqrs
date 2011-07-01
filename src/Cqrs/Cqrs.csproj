@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DynUnit">
+      <HintPath>..\packages\DynUnit.1.0\lib\net40\DynUnit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,7 +43,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commanding\Command.cs" />
+    <Compile Include="Commanding\ICommandSender.cs" />
+    <Compile Include="DelegateAdjuster.cs" />
+    <Compile Include="Domain\AggregateRoot.cs" />
+    <Compile Include="Domain\IRepository.cs" />
+    <Compile Include="Domain\Repository.cs" />
+    <Compile Include="Eventing\Event.cs" />
+    <Compile Include="Eventing\IEventPublisher.cs" />
+    <Compile Include="EventStore\AggregateNotFoundException.cs" />
+    <Compile Include="EventStore\BaseEventStore.cs" />
+    <Compile Include="EventStore\ConcurrencyException.cs" />
+    <Compile Include="EventStore\EventDescriptor.cs" />
+    <Compile Include="EventStore\IEventStore.cs" />
+    <Compile Include="EventStore\Memory\MemoryEventStore.cs" />
+    <Compile Include="IHandle.cs" />
+    <Compile Include="IMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -50,8 +72,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-<Target Name="BeforeBuild">
-  <Exec Condition="Exists('$(ProjectDir)packages.config')"
-          Command="&quot;$(SolutionDir)..\Tools\nuget.exe&quot; install &quot;$(ProjectDir)packages.config&quot; -o &quot;$(SolutionDir)Packages&quot;" />
-</Target>
+  <Target Name="BeforeBuild">
+    <Exec Condition="Exists('$(ProjectDir)packages.config')" Command="&quot;$(SolutionDir)..\Tools\nuget.exe&quot; install &quot;$(ProjectDir)packages.config&quot; -o &quot;$(SolutionDir)Packages&quot;" />
+  </Target>
 </Project>
