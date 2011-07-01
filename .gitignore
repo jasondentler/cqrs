@@ -19,4 +19,4 @@ bin
 *.DS_Store
 
 #nuget packages
-Packages
+src/Packages
