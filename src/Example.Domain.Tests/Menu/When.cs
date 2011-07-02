@@ -8,11 +8,21 @@ namespace Example.Menu
     public class When
     {
 
-        [When(@"I add a menu item")]
-        public void WhenIAddAMenuItem()
+        [When(@"I add coffee to the menu")]
+        public void WhenIAddCoffeeToTheMenu()
         {
             WhenHelper.When(new AddItem(Guid.NewGuid(), "Coffee"));
         }
+
+        [When(@"I add drink size customizations to coffee")]
+        public void WhenIAddDrinkSizeCustomizationsToCoffee()
+        {
+            var itemId = EventSourceHelper.GetId<Item>();
+            var cmd = new AddCustomization(
+                itemId, "Size", new[] {"Short", "Tall", "Grande", "Venti"});
+            WhenHelper.When(cmd);
+        }
+
 
     }
 }

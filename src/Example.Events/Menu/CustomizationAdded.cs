@@ -1,16 +1,15 @@
 ﻿using System;
-using Cqrs.Commanding;
+using Cqrs.Eventing;
 
 namespace Example.Menu
 {
-    public class AddCustomization : Command
+    public class CustomizationAdded : Event
     {
-
         public Guid MenuItemId { get; private set; }
         public string Name { get; private set; }
         public string[] Options { get; private set; }
 
-        public AddCustomization(
+        public CustomizationAdded(
             Guid menuItemId,
             string name,
             string[] options)

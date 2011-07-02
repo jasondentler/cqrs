@@ -18,21 +18,21 @@ namespace Example.Menu
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.6.1.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Add menu items")]
-    public partial class AddMenuItemsFeature
+    [NUnit.Framework.DescriptionAttribute("Add customizations")]
+    public partial class AddCustomizationsFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "AddItem.feature"
+#line 1 "AddCustomizations.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add menu items", "In order to make my millions\r\nAs a Restbucks franchise owner\r\nI want to add menu " +
-                    "items", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add customizations", "In order to appease the spoiled brats who frequent coffee shops\r\nAs a Restbucks f" +
+                    "ranchise owner\r\nI want to setup customizations on menu items", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -55,19 +55,21 @@ namespace Example.Menu
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a menu item")]
+        [NUnit.Framework.DescriptionAttribute("Add a customization")]
         [NUnit.Framework.CategoryAttribute("domain")]
-        public virtual void AddAMenuItem()
+        public virtual void AddACustomization()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a menu item", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a customization", new string[] {
                         "domain"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.When("I add coffee to the menu");
+ testRunner.Given("I have add coffee to the menu");
 #line 9
- testRunner.Then("coffee is added to the menu");
+ testRunner.When("I add drink size customizations to coffee");
 #line 10
+ testRunner.Then("drink size customizations are added to coffee");
+#line 11
  testRunner.And("nothing else happens");
 #line hidden
             testRunner.CollectScenarioErrors();

@@ -5,7 +5,7 @@
 
 @domain
 Scenario: Add a menu item
-	When I add a menu item
-	Then the menu item is added
+	When I add coffee to the menu
+	Then coffee is added to the menu
 	And nothing else happens
 

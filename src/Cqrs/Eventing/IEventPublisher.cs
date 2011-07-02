@@ -3,7 +3,7 @@
     public interface IEventPublisher
     {
 
-        void Publish<TEvent>(TEvent @event) where TEvent : Event;
+        void Publish(Event @event);
 
     }
 }

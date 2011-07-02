@@ -1,11 +1,11 @@
-﻿using Cqrs.Commanding;
+﻿using Cqrs;
+using Cqrs.Commanding;
 using Cqrs.Domain;
 using Cqrs.EventStore;
 using Cqrs.EventStore.Memory;
 using Cqrs.Eventing;
 using Cqrs.Specs;
 using Example.Menu;
-using Ninject;
 using Ninject.Modules;
 
 namespace Example
@@ -23,17 +23,24 @@ namespace Example
                 .InSingletonScope();
 
             Kernel.Bind<IEventPublisher>()
-                .To<NullEventPublisher>()
+                .To<NinjectEventPublisher>()
                 .InSingletonScope();
 
+            RegisterHandlers();
             SetupCommandSender();
+        }
+
+        private void RegisterHandlers()
+        {
+            new HandlerRegistration(Kernel)
+                .RegisterHandlers(typeof (ItemCommandHandler).Assembly)
+                .RegisterHandler(typeof (RegisterEventSources));
         }
 
         private void SetupCommandSender()
         {
 
-            var commandSender = new CommandSender(handler => Kernel.Get(handler));
-            commandSender.RegisterHandlers(typeof (ItemCommandHandler).Assembly);
+            var commandSender = new NinjectCommandSender(Kernel);
 
             var testSender = new TestCommandSender(commandSender);
 
@@ -41,6 +48,7 @@ namespace Example
 
             Kernel.Bind<ICommandSender>()
                 .ToConstant(queuedSender);
+
         }
 
     }

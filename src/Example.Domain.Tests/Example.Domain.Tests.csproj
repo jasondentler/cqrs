@@ -65,18 +65,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CqrsModule.cs" />
+    <Compile Include="Menu\AddCustomizations.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddCustomizations.feature</DependentUpon>
+    </Compile>
     <Compile Include="Menu\AddItem.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AddItem.feature</DependentUpon>
     </Compile>
+    <Compile Include="Menu\Given.cs" />
     <Compile Include="Menu\Then.cs" />
     <Compile Include="Menu\When.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="RegisterEventSources.cs" />
+    <Compile Include="Then.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Menu\AddCustomizations.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AddCustomizations.feature.cs</LastGenOutput>
+    </None>
     <None Include="Menu\AddItem.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AddItem.feature.cs</LastGenOutput>
@@ -84,6 +96,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cqrs.Ninject\Cqrs.Ninject.csproj">
+      <Project>{107068A0-B235-48C9-A1F4-26A0DD96A536}</Project>
+      <Name>Cqrs.Ninject</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cqrs.Specs\Cqrs.Specs.csproj">
       <Project>{AFBC5E46-5BC8-4E2A-9625-6A6E24CA4928}</Project>
       <Name>Cqrs.Specs</Name>
@@ -99,6 +115,10 @@
     <ProjectReference Include="..\Example.Commands\Example.Commands.csproj">
       <Project>{C25F3937-A414-4397-80FB-9802CF034E5C}</Project>
       <Name>Example.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Example.Domain\Example.Domain.csproj">
+      <Project>{0AB1DFC4-7F7D-46B9-9DC5-092B948F31A9}</Project>
+      <Name>Example.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Example.Events\Example.Events.csproj">
       <Project>{3CA57348-CBBE-454D-AB4B-B9890DD6C2F1}</Project>

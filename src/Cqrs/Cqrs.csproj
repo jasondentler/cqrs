@@ -49,14 +49,12 @@
     <Compile Include="Commanding\Command.cs" />
     <Compile Include="Commanding\CommandNotHandledException.cs" />
     <Compile Include="Commanding\CommandSender.cs" />
-    <Compile Include="Commanding\DuplicateCommandHandlerFoundException.cs" />
     <Compile Include="Commanding\ICommandSender.cs" />
     <Compile Include="DelegateAdjuster.cs" />
     <Compile Include="Domain\AggregateRoot.cs" />
     <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\Repository.cs" />
     <Compile Include="Eventing\Event.cs" />
-    <Compile Include="Eventing\NullEventPublisher.cs" />
     <Compile Include="Eventing\IEventPublisher.cs" />
     <Compile Include="EventStore\AggregateNotFoundException.cs" />
     <Compile Include="EventStore\BaseEventStore.cs" />

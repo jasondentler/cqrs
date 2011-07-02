@@ -8,19 +8,29 @@ namespace Example.Menu
     public class Then
     {
 
-        [Then(@"the menu item is added")]
-        public void ThenTheMenuItemIsAdded()
+        [Then(@"coffee is added to the menu")]
+        public void ThenCoffeeIsAddedToTheMenu()
         {
             var e = ThenHelper.Event<ItemAdded>();
             e.Name.Should().Be.EqualTo("Coffee");
         }
 
-        [Then(@"nothing else happens")]
-        public void ThenNothingElseHappens()
+        [Then(@"drink size customizations are added to coffee")]
+        public void ThenDrinkSizeCustomizationsAreAddedToCoffee()
         {
-            ThenHelper.UncheckedEvents().Should().Be.Empty();
-            ThenHelper.HasException().Should().Be.False();
-        }    
+            var menuItemId = EventSourceHelper.GetId<Item>("Coffee");
+            var options = new[] {"Short", "Tall", "Grande", "Venti"};
+            var e = ThenHelper.Event<CustomizationAdded>();
+
+            e.MenuItemId.Should().Be.EqualTo(menuItemId);
+            e.Name.Should().Be.EqualTo("Size");
+            e.Options.Should().Have.SameValuesAs(options);
+
+        }
+
+
+
+
 
     }
 }

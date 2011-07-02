@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Cqrs.Eventing;
 
-namespace Example
+namespace Example.Menu
 {
     public class ItemAdded : Event
     {

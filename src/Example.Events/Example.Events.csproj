@@ -40,7 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ItemAdded.cs" />
+    <Compile Include="Menu\CustomizationAdded.cs" />
+    <Compile Include="Menu\ItemAdded.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
