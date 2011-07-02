@@ -6,6 +6,8 @@ using Cqrs.EventStore.Memory;
 using Cqrs.Eventing;
 using Cqrs.Specs;
 using Example.Menu;
+using Example.Services;
+using Ninject;
 using Ninject.Modules;
 
 namespace Example
@@ -26,6 +28,14 @@ namespace Example
                 .To<NinjectEventPublisher>()
                 .InSingletonScope();
 
+            // To share a single instance with the handler registration
+            Kernel.Bind<IProductService>()
+                .ToMethod(ctx => ctx.Kernel.Get<ProductService>());
+
+            Kernel.Bind<ProductService>()
+                .ToSelf()
+                .InSingletonScope();
+
             RegisterHandlers();
             SetupCommandSender();
         }
@@ -34,6 +44,7 @@ namespace Example
         {
             new HandlerRegistration(Kernel)
                 .RegisterHandlers(typeof (ItemCommandHandler).Assembly)
+                .RegisterHandlers(typeof(ProductService).Assembly)
                 .RegisterHandler(typeof (RegisterEventSources));
         }
 
@@ -48,7 +59,6 @@ namespace Example
 
             Kernel.Bind<ICommandSender>()
                 .ToConstant(queuedSender);
-
         }
 
     }

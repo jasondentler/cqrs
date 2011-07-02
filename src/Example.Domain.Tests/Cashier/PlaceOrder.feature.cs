@@ -70,7 +70,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 10
  testRunner.Then("a take-away order is placed for one small latte, whole milk");
 #line 11
- testRunner.And("the cost is $3.00");
+ testRunner.And("the price is $7.60");
 #line 12
  testRunner.And("the order can be paid");
 #line 13

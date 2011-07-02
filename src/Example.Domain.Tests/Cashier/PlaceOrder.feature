@@ -8,6 +8,6 @@ Scenario: Place an order
 	Given the manager has set up the menu
 	When a customer places a take-away order for one small latte, whole milk
 	Then a take-away order is placed for one small latte, whole milk
-	And the cost is $3.00
+	And the price is $7.60
 	And the order can be paid
 	And nothing else happens

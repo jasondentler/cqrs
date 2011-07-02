@@ -140,6 +140,10 @@
       <Project>{3CA57348-CBBE-454D-AB4B-B9890DD6C2F1}</Project>
       <Name>Example.Events</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Example.Services\Example.Services.csproj">
+      <Project>{F38AD1A6-5A8D-402D-ADA9-90BEEA100CB7}</Project>
+      <Name>Example.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -30,11 +30,11 @@ namespace Example.Cashier
             e.OrderItems[0].Should().Be.EqualTo(orderItem);
         }
 
-        [Then(@"the cost is \$3\.00")]
-        public void ThenTheCostIs3_00()
+        [Then(@"the price is \$7\.60")]
+        public void ThenThePriceIs7_60()
         {
             var e = ThenHelper.Event<OrderPlaced>();
-            e.Price.Should().Be.EqualTo(3M);
+            e.Price.Should().Be.EqualTo(7.6M);
         }
 
         [Then(@"the order can be paid")]

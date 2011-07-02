@@ -58,7 +58,7 @@ namespace Cqrs
                 Log.DebugFormat("Registering {0} to handle {1}", handlerType, item.messageType);
 
                 _kernel.Bind(item.interfaceType)
-                    .To(handlerType);
+                    .ToMethod(ctx => ctx.Kernel.Get(handlerType));
             }
             return this;
         }
