@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cashier\PlaceOrder.cs" />
     <Compile Include="Menu\AddCustomization.cs" />
     <Compile Include="Menu\AddItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -48,6 +49,10 @@
     <ProjectReference Include="..\Cqrs\Cqrs.csproj">
       <Project>{CDC6391F-3C03-45DA-9DB5-94F433CD7560}</Project>
       <Name>Cqrs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Example.Core\Example.Core.csproj">
+      <Project>{B64FF99A-9F06-4270-8F8E-D1F39998916E}</Project>
+      <Name>Example.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

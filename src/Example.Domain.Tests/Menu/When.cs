@@ -8,10 +8,10 @@ namespace Example.Menu
     public class When
     {
 
-        [When(@"I add coffee to the menu")]
+        [When(@"I add \$2 coffee to the menu")]
         public void WhenIAddCoffeeToTheMenu()
         {
-            WhenHelper.When(new AddItem(Guid.NewGuid(), "Coffee"));
+            WhenHelper.When(new AddItem(Guid.NewGuid(), "Coffee", 2M));
         }
 
         [When(@"I add drink size customizations to coffee")]

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Cqrs.Specs;
 using TechTalk.SpecFlow;
 
@@ -14,7 +11,7 @@ namespace Example.Menu
         [Given(@"I have add coffee to the menu")]
         public void GivenIHaveAddCoffeeToTheMenu()
         {
-            var e = new ItemAdded(Guid.NewGuid(), "Coffee");
+            var e = new ItemAdded(Guid.NewGuid(), "Coffee", 2M);
             GivenHelper.Given(e.MenuItemId, e);
         }
     

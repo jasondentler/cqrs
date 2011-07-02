@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cashier\Order.cs" />
     <Compile Include="Menu\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -51,6 +52,10 @@
     <ProjectReference Include="..\Example.Commands\Example.Commands.csproj">
       <Project>{C25F3937-A414-4397-80FB-9802CF034E5C}</Project>
       <Name>Example.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Example.Core\Example.Core.csproj">
+      <Project>{B64FF99A-9F06-4270-8F8E-D1F39998916E}</Project>
+      <Name>Example.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Example.Events\Example.Events.csproj">
       <Project>{3CA57348-CBBE-454D-AB4B-B9890DD6C2F1}</Project>

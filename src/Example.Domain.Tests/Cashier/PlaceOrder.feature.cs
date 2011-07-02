@@ -10,7 +10,7 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
-namespace Example.Menu
+namespace Example.Cashier
 {
     using TechTalk.SpecFlow;
     
@@ -18,21 +18,21 @@ namespace Example.Menu
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.6.1.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Add menu items")]
-    public partial class AddMenuItemsFeature
+    [NUnit.Framework.DescriptionAttribute("Place an order")]
+    public partial class PlaceAnOrderFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "AddItem.feature"
+#line 1 "PlaceOrder.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add menu items", "In order to make my millions\r\nAs a Restbucks franchise owner\r\nI want to add menu " +
-                    "items", GenerationTargetLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Place an order", "In order to keep my job\r\nAs a cashier\r\nI want to take orders from customers and g" +
+                    "ive them their total", GenerationTargetLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -55,19 +55,25 @@ namespace Example.Menu
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a menu item")]
+        [NUnit.Framework.DescriptionAttribute("Place an order")]
         [NUnit.Framework.CategoryAttribute("domain")]
-        public virtual void AddAMenuItem()
+        public virtual void PlaceAnOrder()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a menu item", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Place an order", new string[] {
                         "domain"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.When("I add $2 coffee to the menu");
+ testRunner.Given("the manager has set up the menu");
 #line 9
- testRunner.Then("$2 coffee is added to the menu");
+ testRunner.When("a customer places a take-away order for one small latte, whole milk");
 #line 10
+ testRunner.Then("a take-away order is placed for one small latte, whole milk");
+#line 11
+ testRunner.And("the cost is $3.00");
+#line 12
+ testRunner.And("the order can be paid");
+#line 13
  testRunner.And("nothing else happens");
 #line hidden
             testRunner.CollectScenarioErrors();

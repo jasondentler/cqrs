@@ -16,7 +16,7 @@ namespace Example.Menu
 
         public void Handle(AddItem message)
         {
-            var item = new Item(message.MenuItemId, message.Name);
+            var item = new Item(message.MenuItemId, message.Name, message.Price);
             _repository.Save(item, 0);
         }
 

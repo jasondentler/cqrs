@@ -64,6 +64,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cashier\PlaceOrder.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlaceOrder.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cashier\Then.cs" />
+    <Compile Include="Cashier\When.cs" />
     <Compile Include="CqrsModule.cs" />
     <Compile Include="Menu\AddCustomizations.feature.cs">
       <AutoGen>True</AutoGen>
@@ -76,6 +83,7 @@
       <DependentUpon>AddItem.feature</DependentUpon>
     </Compile>
     <Compile Include="Menu\Given.cs" />
+    <Compile Include="Menu\SetupTheMenu.cs" />
     <Compile Include="Menu\Then.cs" />
     <Compile Include="Menu\When.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +93,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Cashier\PlaceOrder.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PlaceOrder.feature.cs</LastGenOutput>
+    </None>
     <None Include="Menu\AddCustomizations.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AddCustomizations.feature.cs</LastGenOutput>
@@ -115,6 +127,10 @@
     <ProjectReference Include="..\Example.Commands\Example.Commands.csproj">
       <Project>{C25F3937-A414-4397-80FB-9802CF034E5C}</Project>
       <Name>Example.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Example.Core\Example.Core.csproj">
+      <Project>{B64FF99A-9F06-4270-8F8E-D1F39998916E}</Project>
+      <Name>Example.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Example.Domain\Example.Domain.csproj">
       <Project>{0AB1DFC4-7F7D-46B9-9DC5-092B948F31A9}</Project>

@@ -8,7 +8,7 @@ namespace Example.Menu
     public class Then
     {
 
-        [Then(@"coffee is added to the menu")]
+        [Then(@"\$2 coffee is added to the menu")]
         public void ThenCoffeeIsAddedToTheMenu()
         {
             var e = ThenHelper.Event<ItemAdded>();

@@ -12,9 +12,10 @@ namespace Example.Menu
 
         public Item(
             Guid menuItemId,
-            string name)
+            string name,
+            decimal price)
         {
-            ApplyChange(new ItemAdded(menuItemId, name));
+            ApplyChange(new ItemAdded(menuItemId, name, price));
         }
 
         public void AddCustomization(string name, string[] options)
