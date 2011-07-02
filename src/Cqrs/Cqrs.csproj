@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Commanding\Command.cs" />
     <Compile Include="Commanding\CommandNotHandledException.cs" />
-    <Compile Include="Commanding\CommandSender.cs" />
     <Compile Include="Commanding\ICommandSender.cs" />
     <Compile Include="DelegateAdjuster.cs" />
     <Compile Include="Domain\AggregateRoot.cs" />
