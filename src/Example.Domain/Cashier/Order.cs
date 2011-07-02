@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Cqrs.Domain;
 using Stateless;
@@ -9,29 +8,29 @@ namespace Example.Cashier
     public class Order : AggregateRoot 
     {
 
-        public enum OrderState
+        private enum OrderState
         {
             Initial,
             Placed, 
             Paid
         }
 
-        public enum OrderTriggers
+        private enum OrderAction
         {
             PlaceOrder,
             Pay
         }
-
-        private readonly StateMachine<OrderState, OrderTriggers> _stateMachine;
+        
+        private readonly StateMachine<OrderState, OrderAction> _stateMachine;
 
         public Order()
         {
-            _stateMachine = new StateMachine<OrderState, OrderTriggers>(
+            _stateMachine = new StateMachine<OrderState, OrderAction>(
                 OrderState.Initial);
             _stateMachine.Configure(OrderState.Initial)
-                .Permit(OrderTriggers.PlaceOrder, OrderState.Placed);
+                .Permit(OrderAction.PlaceOrder, OrderState.Placed);
             _stateMachine.Configure(OrderState.Placed)
-                .Permit(OrderTriggers.Pay, OrderState.Paid);
+                .Permit(OrderAction.Pay, OrderState.Paid);
         }
 
         public Order(
@@ -41,7 +40,7 @@ namespace Example.Cashier
             IProductInfo[] products)
             : this()
         {
-            if (!_stateMachine.CanFire(OrderTriggers.PlaceOrder)) return;
+            if (!_stateMachine.CanFire(OrderAction.PlaceOrder)) return;
 
             var price = orderItems
                 .Select(i => new
@@ -63,7 +62,8 @@ namespace Example.Cashier
         private void Apply(OrderPlaced e)
         {
             Id = e.OrderId;
-            _stateMachine.Fire(OrderTriggers.PlaceOrder);
+            _stateMachine.Fire(OrderAction.PlaceOrder);
         }
+
     }
 }

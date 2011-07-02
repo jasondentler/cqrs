@@ -29,6 +29,7 @@ namespace Example
                 .InSingletonScope();
 
             // To share a single instance with the handler registration
+            // If we used a db, we could separate the handler from the service
             Kernel.Bind<IProductService>()
                 .ToMethod(ctx => ctx.Kernel.Get<ProductService>());
 

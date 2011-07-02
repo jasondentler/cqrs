@@ -72,8 +72,6 @@ this.ScenarioSetup(scenarioInfo);
 #line 11
  testRunner.And("the price is $7.60");
 #line 12
- testRunner.And("the order can be paid");
-#line 13
  testRunner.And("nothing else happens");
 #line hidden
             testRunner.CollectScenarioErrors();

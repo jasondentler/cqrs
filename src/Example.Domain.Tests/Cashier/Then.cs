@@ -37,11 +37,5 @@ namespace Example.Cashier
             e.Price.Should().Be.EqualTo(7.6M);
         }
 
-        [Then(@"the order can be paid")]
-        public void ThenTheOrderCanBePaid()
-        {
-            ScenarioContext.Current.Pending();
-        }
-
     }
 }
