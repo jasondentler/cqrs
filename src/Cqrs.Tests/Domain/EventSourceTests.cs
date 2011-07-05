@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cqrs.EventStore;
 using Cqrs.Eventing;
 using NUnit.Framework;
 using SharpTestsEx;

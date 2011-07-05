@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Cqrs.Commanding;
 using Cqrs.EventStore;
 using Cqrs.Eventing;
 using Cqrs.Sagas;
 using NUnit.Framework;
 using Rhino.Mocks;
+using SharpTestsEx;
 
 namespace Cqrs.Domain
 {
@@ -89,6 +92,66 @@ namespace Cqrs.Domain
 
             mocks.VerifyAll();
 
+        }
+
+        [Test]
+        public void CanGetById()
+        {
+            var e1 = new E1();
+            var e2 = new E2();
+            var history = new Event[] {e1, e2};
+            var arId = Guid.NewGuid();
+
+            var mocks = new MockRepository();
+
+            var eventStore = mocks.StrictMock<IEventStore>();
+
+            eventStore.Expect(es => es.GetEvents(arId))
+                .Return(history.ToList());
+
+            mocks.ReplayAll();
+
+            var repo = GetInstance(eventStore);
+            var ar = repo.GetById<AR>(arId);
+
+            mocks.VerifyAll();
+
+            ar.Events.Should().Have.SameSequenceAs(history);
+
+        }
+
+        public class AR : EventSource
+        {
+
+            public readonly List<Event> Events = new List<Event>();
+
+            public AR()
+            {
+            }
+
+            public AR(Guid someParamsToTry)
+            {
+                throw new Exception("Wrong constructor!");
+            }
+
+            private void Apply(E1 e)
+            {
+                Events.Add(e);
+            }
+
+            private void Apply(E2 e)
+            {
+                Events.Add(e);
+            }
+
+        }
+
+        public class E1 : Event
+        {
+        }
+
+        public class E2 : Event
+        {
         }
 
     }

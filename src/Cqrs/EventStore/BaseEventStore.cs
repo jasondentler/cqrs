@@ -60,9 +60,9 @@ namespace Cqrs.EventStore
                 _commandSender.Send(cmd);
         }
 
-        public List<Event> GetEventsForAggregate(Guid aggregateId)
+        public List<Event> GetEvents(Guid eventSourceId)
         {
-            var eventDescriptors = LoadEventDescriptorsForAggregate(aggregateId);
+            var eventDescriptors = LoadEventDescriptorsForAggregate(eventSourceId);
             if (null == eventDescriptors || !eventDescriptors.Any())
             {
                 throw new AggregateNotFoundException();

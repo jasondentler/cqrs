@@ -28,9 +28,7 @@ namespace Cqrs.EventStore
 
         public bool Equals(EventDescriptor other)
         {
-            return null == other
-                      ? false
-                      : other.Id == Id && other.Version == Version;
+            return null != other && (other.Id == Id && other.Version == Version);
         }
 
         public override int GetHashCode()

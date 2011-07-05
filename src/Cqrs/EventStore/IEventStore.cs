@@ -12,6 +12,6 @@ namespace Cqrs.EventStore
         void SaveEventsFromSaga(Guid sagaId, IEnumerable<Event> events, int expectedVersion,
                                 IEnumerable<Command> dispatches);
 
-        List<Event> GetEventsForAggregate(Guid aggregateId);
+        List<Event> GetEvents(Guid eventSourceId);
     }
 }

@@ -41,7 +41,7 @@ namespace Cqrs.Domain
         public T GetById<T>(Guid id) where T : class, IEventSource
         {
             var obj = Activator.CreateInstance<T>();//lots of ways to do this
-            var e = _storage.GetEventsForAggregate(id);
+            var e = _storage.GetEvents(id);
             obj.LoadsFromHistory(e);
             return obj;
         }

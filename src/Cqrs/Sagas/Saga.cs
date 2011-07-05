@@ -4,7 +4,7 @@ using Cqrs.Domain;
 
 namespace Cqrs.Sagas
 {
-    public abstract class Saga : EventSource
+    public abstract class Saga : EventSource, ISaga
     {
 
         private readonly List<Command> _dispatches = new List<Command>();
