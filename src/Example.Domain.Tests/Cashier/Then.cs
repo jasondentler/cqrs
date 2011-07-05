@@ -9,20 +9,7 @@ using TechTalk.SpecFlow;
 
 namespace Example.Cashier
 {
-
-    public static class Extensions
-    {
-        internal static bool ContainsTheSameValuesAs<T>(this T[] a, T[] b)
-        {
-            if (ReferenceEquals(a, b))
-                return true;
-            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
-                return false;
-            return !a.Except(b).Concat(b.Except(a)).Any();
-        }
-
-    }
-
+    
     [Binding]
     public class Then
     {
@@ -121,7 +108,7 @@ namespace Example.Cashier
             e.CardHolderName.Should().Be.EqualTo("Jason Dentler");
             e.CardNumber.Should().Be.EqualTo("5444444444444444");
             e.DiningLocation.Should().Be.EqualTo(placedEvent.DiningLocation);
-            e.OrderItems.ContainsTheSameValuesAs(placedEvent.OrderItems).Should().Be.True();
+            e.OrderItems.Should().Have.SameValuesAs(placedEvent.OrderItems);
             e.Price.Should().Be.EqualTo(placedEvent.Price);
         }
 
