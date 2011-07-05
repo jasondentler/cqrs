@@ -51,8 +51,11 @@
     <Compile Include="Commanding\ICommandSender.cs" />
     <Compile Include="DelegateAdjuster.cs" />
     <Compile Include="Domain\AggregateRoot.cs" />
+    <Compile Include="Domain\EventSource.cs" />
+    <Compile Include="Domain\InvalidStateException.cs" />
     <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\Repository.cs" />
+    <Compile Include="Sagas\Saga.cs" />
     <Compile Include="Eventing\Event.cs" />
     <Compile Include="Eventing\IEventPublisher.cs" />
     <Compile Include="EventStore\AggregateNotFoundException.cs" />

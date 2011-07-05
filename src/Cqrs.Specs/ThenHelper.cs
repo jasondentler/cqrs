@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Cqrs.Commanding;
+using Cqrs.Domain;
 using Cqrs.Eventing;
 using TechTalk.SpecFlow;
 
@@ -33,6 +33,13 @@ namespace Cqrs.Specs
         public static TEvent Event<TEvent>() where TEvent : Event
         {
             var e = WhenHelper.Events.OfType<TEvent>().Single();
+            GetCheckedEventSet().Add(e);
+            return e;
+        }
+
+        public static TEvent Event<TEvent, TEventSource>() where TEvent : Event where TEventSource : EventSource
+        {
+            var e = WhenHelper.GetEvents<TEventSource>().OfType<TEvent>().Single();
             GetCheckedEventSet().Add(e);
             return e;
         }

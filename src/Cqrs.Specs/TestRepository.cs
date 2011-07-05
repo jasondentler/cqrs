@@ -1,29 +1,32 @@
 ﻿using System;
 using Cqrs.Domain;
 using Cqrs.EventStore;
+using Cqrs.Sagas;
 
 namespace Cqrs.Specs
 {
-    public class TestRepository<TAggregate> :
-        IRepository<TAggregate> where TAggregate : AggregateRoot, new()
+    public class TestRepository<TEventSource> :
+        IRepository<TEventSource> where TEventSource : EventSource, new()
     {
 
-        private readonly Repository<TAggregate> _repository;
+        private readonly Repository<TEventSource> _repository;
 
         public TestRepository(IEventStore eventStore)
         {
-            _repository = new Repository<TAggregate>(eventStore);
+            _repository = new Repository<TEventSource>(eventStore);
         }
 
-        public void Save(AggregateRoot aggregate, int expectedVersion)
+        public void Save(EventSource eventSource)
         {
-            foreach (var e in aggregate.GetUncommittedChanges())
-                WhenHelper.OnEventStored(e);
 
-            _repository.Save(aggregate, expectedVersion);
+            if (eventSource as Saga == null)
+                foreach (var e in eventSource.GetUncommittedChanges())
+                    WhenHelper.OnEventStored(eventSource.Id, e);
+
+            _repository.Save(eventSource);
         }
 
-        public TAggregate GetById(Guid id)
+        public TEventSource GetById(Guid id)
         {
             return _repository.GetById(id);
         }

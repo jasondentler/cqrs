@@ -1,9 +1,10 @@
 ﻿using System;
 using Cqrs.EventStore;
+using Cqrs.Sagas;
 
 namespace Cqrs.Domain
 {
-    public class Repository<T> : IRepository<T> where T : AggregateRoot, new() //shortcut you can do as you see fit with new()
+    public class Repository<T> : IRepository<T> where T : EventSource, new() //shortcut you can do as you see fit with new()
     {
         private readonly IEventStore _storage;
 
@@ -12,9 +13,29 @@ namespace Cqrs.Domain
             _storage = storage;
         }
 
-        public void Save(AggregateRoot aggregate, int expectedVersion)
+        public void Save(EventSource eventSource)
         {
-            _storage.SaveEvents(aggregate.Id, aggregate.GetUncommittedChanges(), expectedVersion);
+            var saga = eventSource as Saga;
+            if (saga != null)
+            {
+                SaveSaga(saga);
+            }
+            else
+            {
+                SaveEventSource(eventSource);
+            }
+        }
+
+        private void SaveSaga(Saga saga)
+        {
+            _storage.SaveEventsFromSaga(saga.Id, saga.GetUncommittedChanges(), saga.Version, saga.GetDispatches());
+            saga.MarkChangesAsCommitted();
+        }
+
+        private void SaveEventSource(EventSource eventSource)
+        {
+            _storage.SaveEventsFromAggregate(eventSource.Id, eventSource.GetUncommittedChanges(), eventSource.Version);
+            eventSource.MarkChangesAsCommitted();
         }
 
         public T GetById(Guid id)

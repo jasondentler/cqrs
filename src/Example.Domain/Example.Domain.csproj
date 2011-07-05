@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Stateless">
-      <HintPath>..\packages\stateless-4.0.2.3.1.1\lib\net40\Stateless.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Barista\Order.cs" />
+    <Compile Include="CashierBaristaCoordinator.cs" />
     <Compile Include="Cashier\Order.cs" />
     <Compile Include="Menu\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,9 +63,6 @@
       <Project>{3CA57348-CBBE-454D-AB4B-B9890DD6C2F1}</Project>
       <Name>Example.Events</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

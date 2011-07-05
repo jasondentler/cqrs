@@ -12,7 +12,7 @@ namespace Cqrs.Specs
             _commandSender = commandSender;
         }
 
-        public void Send<TCommand>(TCommand command) where TCommand : Command
+        public void Send(Command command)
         {
             WhenHelper.OnCommandSentk(command);
             _commandSender.Send(command);

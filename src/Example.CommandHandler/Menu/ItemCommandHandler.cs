@@ -17,14 +17,14 @@ namespace Example.Menu
         public void Handle(AddItem message)
         {
             var item = new Item(message.MenuItemId, message.Name, message.Price);
-            _repository.Save(item, 0);
+            _repository.Save(item);
         }
 
         public void Handle(AddCustomization message)
         {
             var item = _repository.GetById(message.MenuItemId);
             item.AddCustomization(message.Name, message.Options);
-            _repository.Save(item, item.Version);
+            _repository.Save(item);
         }
     }
 }

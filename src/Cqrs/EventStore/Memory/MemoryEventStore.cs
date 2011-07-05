@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cqrs.Commanding;
 using Cqrs.Eventing;
 
 namespace Cqrs.EventStore.Memory
@@ -7,8 +8,8 @@ namespace Cqrs.EventStore.Memory
     public class MemoryEventStore : BaseEventStore
     {
 
-        public MemoryEventStore(IEventPublisher publisher)
-            : base(publisher)
+        public MemoryEventStore(IEventPublisher publisher, ICommandSender commandSender)
+            : base(publisher, commandSender)
         {
         }
 

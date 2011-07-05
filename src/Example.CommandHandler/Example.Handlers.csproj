@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Barista\OrderCommandHandler.cs" />
+    <Compile Include="CashierBaristaCoordinatorHandler.cs" />
     <Compile Include="Cashier\OrderCommandHandler.cs" />
     <Compile Include="Menu\ItemCommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +62,10 @@
     <ProjectReference Include="..\Example.Domain\Example.Domain.csproj">
       <Project>{0AB1DFC4-7F7D-46B9-9DC5-092B948F31A9}</Project>
       <Name>Example.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Example.Events\Example.Events.csproj">
+      <Project>{3CA57348-CBBE-454D-AB4B-B9890DD6C2F1}</Project>
+      <Name>Example.Events</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

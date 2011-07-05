@@ -9,16 +9,16 @@ namespace Example.Cashier
     public class PlaceOrder : Command
     {
         public Guid OrderId { get; private set; }
-        public DiningLocation TakeAway { get; private set; }
+        public DiningLocation DiningLocation { get; private set; }
         public OrderItem[] OrderItems { get; private set; }
 
         public PlaceOrder(
             Guid orderId, 
-            DiningLocation takeAway, 
+            DiningLocation diningLocation, 
             params OrderItem[] orderItems)
         {
             OrderId = orderId;
-            TakeAway = takeAway;
+            DiningLocation = diningLocation;
             OrderItems = orderItems;
         }
     }

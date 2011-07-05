@@ -5,7 +5,10 @@ using Cqrs.Domain;
 namespace Example.Cashier
 {
     public class OrderCommandHandler : 
-        IHandle<PlaceOrder>
+        IHandle<PlaceOrder>,
+        IHandle<AddOrderItem>,
+        IHandle<CancelOrder>,
+        IHandle<PayOrder>
     {
         private readonly IRepository<Order> _repository;
         private readonly IProductService _productService;
@@ -28,12 +31,35 @@ namespace Example.Cashier
 
             var order = new Order(
                 message.OrderId,
-                message.TakeAway,
+                message.DiningLocation,
                 message.OrderItems,
                 products);
-            _repository.Save(order, 0);
+            _repository.Save(order);
 
 
+        }
+
+        public void Handle(AddOrderItem message)
+        {
+            var menuItemId = message.Item.MenuItemId;
+            var product = _productService.GetProductInfo(menuItemId);
+            var order = _repository.GetById(message.OrderId);
+            order.AddItem(message.Item, product);
+            _repository.Save(order);
+        }
+
+        public void Handle(CancelOrder message)
+        {
+            var order = _repository.GetById(message.OrderId);
+            order.Cancel();
+            _repository.Save(order);
+        }
+
+        public void Handle(PayOrder message)
+        {
+            var order = _repository.GetById(message.OrderId);
+            order.Pay(message.CardHolderName, message.CardNumber);
+            _repository.Save(order);
         }
     }
 }

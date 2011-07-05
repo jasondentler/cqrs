@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cqrs.Domain;
-using Stateless;
 
 namespace Example.Cashier
 {
@@ -12,25 +12,17 @@ namespace Example.Cashier
         {
             Initial,
             Placed, 
-            Paid
+            Paid,
+            Cancelled
         }
 
-        private enum OrderAction
-        {
-            PlaceOrder,
-            Pay
-        }
+        private OrderState _state = OrderState.Initial;
+        private readonly List<OrderItem> _items = new List<OrderItem>();
+        private decimal _price = 0M;
+        private DiningLocation _location;
         
-        private readonly StateMachine<OrderState, OrderAction> _stateMachine;
-
         public Order()
         {
-            _stateMachine = new StateMachine<OrderState, OrderAction>(
-                OrderState.Initial);
-            _stateMachine.Configure(OrderState.Initial)
-                .Permit(OrderAction.PlaceOrder, OrderState.Placed);
-            _stateMachine.Configure(OrderState.Placed)
-                .Permit(OrderAction.Pay, OrderState.Paid);
         }
 
         public Order(
@@ -40,8 +32,6 @@ namespace Example.Cashier
             IProductInfo[] products)
             : this()
         {
-            if (!_stateMachine.CanFire(OrderAction.PlaceOrder)) return;
-
             var price = orderItems
                 .Select(i => new
                                  {
@@ -59,11 +49,89 @@ namespace Example.Cashier
             ApplyChange(e);
         }
 
+        public void AddItem(OrderItem item, IProductInfo product)
+        {
+            switch (_state)
+            {
+                case OrderState.Cancelled:
+                    throw new InvalidStateException(
+                        "You can't add an item. This order is already cancelled. Place a new order.");
+                case OrderState.Paid:
+                    throw new InvalidStateException("You can't change this order. It's already paid. Place a new order.");
+            }
+
+            var priceForNewItem = item.Quantity*product.Price;
+            var e = new OrderItemAdded(
+                Id,
+                _location,
+                _items.ToArray(),
+                item,
+                _price + priceForNewItem);
+            ApplyChange(e);
+        }
+
+        public void Cancel()
+        {
+
+            switch (_state)
+            {
+                case OrderState.Cancelled:
+                    return;
+                case OrderState.Paid:
+                    throw new InvalidStateException("You can't cancel this order. It has already been paid.");
+            }
+
+            var e = new OrderCancelled(Id);
+            ApplyChange(e);
+        }
+
+
+        public void Pay(string cardHolderName, string cardNumber)
+        {
+
+            switch (_state)
+            {
+                case OrderState.Cancelled:
+                    throw new InvalidStateException("You can't pay for this order. It is cancelled. Place a new order.");
+                case OrderState.Paid:
+                    throw new InvalidStateException("You can't pay for this order. It's already paid.");
+            }
+
+            var e = new OrderPaid(
+                Id,
+                _location,
+                _items.ToArray(),
+                _price,
+                cardHolderName,
+                cardNumber,
+                Guid.NewGuid(),
+                Guid.NewGuid());
+            ApplyChange(e);
+        }
+
         private void Apply(OrderPlaced e)
         {
             Id = e.OrderId;
-            _stateMachine.Fire(OrderAction.PlaceOrder);
+            _state = OrderState.Placed;
+            _items.AddRange(e.OrderItems);
+            _price = e.Price;
+            _location = e.DiningLocation;
         }
 
+        private void Apply(OrderItemAdded e)
+        {
+            _price = e.Price;
+            _items.Add(e.AddedItem);
+        }
+
+        private void Apply(OrderCancelled e)
+        {
+            _state = OrderState.Cancelled;
+        }
+
+        private void Apply(OrderPaid e)
+        {
+            _state = OrderState.Paid;
+        }
     }
 }

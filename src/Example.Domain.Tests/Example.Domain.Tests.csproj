@@ -64,12 +64,41 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Barista\DeliverOrder.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeliverOrder.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Barista\Given.cs" />
+    <Compile Include="Barista\PrepareOrder.feature.cs">
+      <DependentUpon>PrepareOrder.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Barista\Then.cs" />
+    <Compile Include="Barista\When.cs" />
+    <Compile Include="Cashier\CancelOrder.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CancelOrder.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Cashier\Given.cs" />
+    <Compile Include="Cashier\PayForOrder.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PayForOrder.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cashier\PlaceOrder.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PlaceOrder.feature</DependentUpon>
     </Compile>
     <Compile Include="Cashier\Then.cs" />
+    <Compile Include="Cashier\UpdateOrder.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdateOrder.feature</DependentUpon>
+    </Compile>
     <Compile Include="Cashier\When.cs" />
     <Compile Include="CqrsModule.cs" />
     <Compile Include="Menu\AddCustomizations.feature.cs">
@@ -93,9 +122,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Barista\DeliverOrder.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DeliverOrder.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Barista\PrepareOrder.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PrepareOrder.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cashier\CancelOrder.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CancelOrder.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cashier\PayForOrder.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PayForOrder.feature.cs</LastGenOutput>
+    </None>
     <None Include="Cashier\PlaceOrder.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PlaceOrder.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Cashier\UpdateOrder.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>UpdateOrder.feature.cs</LastGenOutput>
     </None>
     <None Include="Menu\AddCustomizations.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -120,9 +169,9 @@
       <Project>{CDC6391F-3C03-45DA-9DB5-94F433CD7560}</Project>
       <Name>Cqrs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Example.CommandHandler\Example.CommandHandler.csproj">
+    <ProjectReference Include="..\Example.CommandHandler\Example.Handlers.csproj">
       <Project>{82AED54C-61B9-42F5-9D6E-D2897AF56F41}</Project>
-      <Name>Example.CommandHandler</Name>
+      <Name>Example.Handlers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Example.Commands\Example.Commands.csproj">
       <Project>{C25F3937-A414-4397-80FB-9802CF034E5C}</Project>

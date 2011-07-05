@@ -3,7 +3,7 @@
     public interface ICommandSender
     {
 
-        void Send<TCommand>(TCommand command) where TCommand : Command;
+        void Send(Command command);
 
     }
 }

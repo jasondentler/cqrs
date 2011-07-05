@@ -40,7 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Barista\OrderDelivered.cs" />
+    <Compile Include="Barista\OrderPrepared.cs" />
+    <Compile Include="Barista\OrderBeingPrepared.cs" />
+    <Compile Include="Cashier\OrderPaid.cs" />
+    <Compile Include="Cashier\OrderCancelled.cs" />
+    <Compile Include="Cashier\OrderItemAdded.cs" />
     <Compile Include="Cashier\OrderPlaced.cs" />
+    <Compile Include="Barista\OrderQueued.cs" />
     <Compile Include="Menu\CustomizationAdded.cs" />
     <Compile Include="Menu\ItemAdded.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

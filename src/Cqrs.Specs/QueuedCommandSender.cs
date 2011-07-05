@@ -31,7 +31,7 @@ namespace Cqrs.Specs
             _queue = new ConcurrentQueue<Action>();
         }
 
-        public void Send<TCommand>(TCommand command) where TCommand : Command
+        public void Send(Command command)
         {
             _queue.Enqueue(() => _commandSender.Send(command));
             ExecuteUntilEmpty();

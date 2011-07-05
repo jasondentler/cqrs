@@ -2,9 +2,9 @@
 
 namespace Cqrs.Domain
 {
-    public interface IRepository<T> where T : AggregateRoot
+    public interface IRepository<T> where T : EventSource
     {
-        void Save(AggregateRoot aggregate, int expectedVersion);
+        void Save(EventSource eventSource);
         T GetById(Guid id);
     }
 }

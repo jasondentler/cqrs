@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Ninject;
@@ -47,6 +48,7 @@ namespace Cqrs.Eventing
             where TEvent : Event
         {
             var handlers = _kernel.GetAll<IHandle<TEvent>>();
+
             foreach (var handler in handlers)
                 handler.Handle(@event);
         }

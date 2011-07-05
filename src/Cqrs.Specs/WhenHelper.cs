@@ -37,26 +37,46 @@ namespace Cqrs.Specs
 
         public static bool HasException { get { return Context.ContainsKey(ExceptionKey); } }
 
-        public  static Event[] Events { get { return GetEventList().ToArray(); } }
-
-        internal static void OnEventStored(Event @event)
+        public static Event[] Events
         {
-
-            Console.WriteLine("\t\tEvent {0} {1}", @event.GetType(), JsonConvert.SerializeObject(@event));
-            GetEventList().Add(@event);
+            get { return GetEvents().SelectMany(i => i.Value).ToArray(); }
         }
 
-        private static IList<Event> GetEventList()
+        public static Event[] GetEvents(Guid eventSourceId)
         {
-            IList<Event> events;
+            return GetEvents()[eventSourceId].ToArray();
+        }
+
+        public static Event[] GetEvents<TEventSource>(params string[] naturalId)
+        {
+            var id = EventSourceHelper.GetId<TEventSource>(naturalId);
+            return GetEvents(id);
+        }
+
+        internal static void OnEventStored(Guid eventSourceId, Event @event)
+        {
+            Console.WriteLine("\t\tEvent {0} {1} to {2}", @event.GetType(), JsonConvert.SerializeObject(@event),
+                              eventSourceId);
+
+            var events = GetEvents();
+            if (!events.ContainsKey(eventSourceId))
+            {
+                events[eventSourceId] = new List<Event>();
+            }
+            events[eventSourceId].Add(@event);
+        }
+
+        private static IDictionary<Guid, IList<Event>> GetEvents()
+        {
+            IDictionary<Guid, IList<Event>> events;
             if (!Context.ContainsKey(EventsKey))
             {
-                events = new List<Event>();
+                events = new Dictionary<Guid, IList<Event>>();
                 Context[EventsKey] = events;
             }
             else
             {
-                events = (IList<Event>)Context[EventsKey];
+                events = (IDictionary<Guid, IList<Event>>)Context[EventsKey];
             }
             return events;
         }
