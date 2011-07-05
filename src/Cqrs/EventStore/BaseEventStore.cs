@@ -28,12 +28,15 @@ namespace Cqrs.EventStore
 
         public void SaveEventsFromSaga(Guid sagaId, IEnumerable<Event> events, int expectedVersion, IEnumerable<Command> dispatches)
         {
-            SaveEvents(sagaId, events, expectedVersion);
+            var evnts = events.ToArray();
+            SaveEvents(sagaId, evnts, expectedVersion);
             DispatchCommands(dispatches);
         }
 
-        private void SaveEvents(Guid eventSourceId, IEnumerable<Event> events, int expectedVersion)
+        private void SaveEvents(Guid eventSourceId, Event[] events, int expectedVersion)
         {
+            if (!events.Any())
+                return;
             var eventDescriptors = new List<EventDescriptor>();
             var i = expectedVersion;
             foreach (var @event in events)

@@ -56,7 +56,9 @@
     <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Domain\Repository.cs" />
     <Compile Include="EventStore\ISerializer.cs" />
+    <Compile Include="EventStore\ITypeNameResolver.cs" />
     <Compile Include="EventStore\SerializedEventStore.cs" />
+    <Compile Include="EventStore\SimpleTypeNameResolver.cs" />
     <Compile Include="Sagas\ISaga.cs" />
     <Compile Include="Sagas\Saga.cs" />
     <Compile Include="Eventing\Event.cs" />

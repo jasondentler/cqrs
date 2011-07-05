@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cqrs.EventStore;
 using Cqrs.Eventing;
 using Ninject;
@@ -21,8 +22,13 @@ namespace Cqrs.Specs
 
         public static void Given(Guid eventSourceId, Event @event)
         {
+            var givenEvents = GivenEvents(eventSourceId);
+
+            var expectedVersion = givenEvents.Count();
+            @event.Version = expectedVersion + 1;
+
             var store = GetEventStore();
-            store.SaveEventsFromAggregate(eventSourceId, new[] {@event}, -1);
+            store.SaveEventsFromAggregate(eventSourceId, new[] {@event}, expectedVersion);
             var events = GetEvents();
             if (!events.ContainsKey(eventSourceId))
                 events[eventSourceId] = new List<Event>();
@@ -31,6 +37,9 @@ namespace Cqrs.Specs
 
         public static IEnumerable<Event> GivenEvents(Guid eventSourceId)
         {
+            var events = GetEvents();
+            if (!events.ContainsKey(eventSourceId))
+                events[eventSourceId] = new List<Event>();
             return GetEvents()[eventSourceId];
         }
 

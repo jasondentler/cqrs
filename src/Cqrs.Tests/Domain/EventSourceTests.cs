@@ -34,7 +34,7 @@ namespace Cqrs.Domain
         [Test]
         public void HistoricalEventsAreAppliedToTheAggregate()
         {
-            E historicalEvent = null;
+            E historicalEvent = new E();
             E appliedEvent = null;
             Action<E> onApplied = e => appliedEvent = e;
             var ar = new AR(onApplied);
@@ -45,7 +45,7 @@ namespace Cqrs.Domain
         [Test]
         public void HistoricalEventsAreNotExposedThroughGetUncommitedChanged()
         {
-            E historicalEvent = null;
+            E historicalEvent = new E();
             Action<E> onApplied = e => { };
             var ar = new AR(onApplied);
             ar.LoadsFromHistory(new[] { historicalEvent });
@@ -71,6 +71,18 @@ namespace Cqrs.Domain
             ar.Method();
             ar.Method();
             ar.GetUncommittedChanges().Should().Have.SameSequenceAs(events);
+        }
+
+        [Test]
+        public void LoadFromHistorySetsVersion()
+        {
+            var history = new Event[] {new E() {Version = 0}, new E() {Version = 1}, new E() {Version = 2}};
+
+            Action<E> onApplied = e => { };
+            var ar = new AR(onApplied);
+
+            ar.LoadsFromHistory(history);
+            ar.Version.Should().Be.EqualTo(2);
         }
 
         public class AR : EventSource

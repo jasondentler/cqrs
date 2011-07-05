@@ -34,30 +34,33 @@ namespace Example
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return other.MenuItemId.Equals(MenuItemId) && OptionsAreEqual(other.Options, Options) && other.Quantity == Quantity;
+            return other.MenuItemId.Equals(MenuItemId) &&
+                   other.Quantity == Quantity &&
+                   OptionsAreEqual(other.Options, Options);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int result = MenuItemId.GetHashCode();
-                result = (result*397) ^ Options.GetHashCode();
-                result = (result*397) ^ Quantity;
-                return result;
-            }
+            int result = MenuItemId.GetHashCode();
+            result = (result*397) ^ Quantity;
+            return result;
         }
 
         private static bool OptionsAreEqual(IDictionary<string, string> a, IDictionary<string,string> b)
         {
             if (ReferenceEquals(a,b)) return true;
             if (ReferenceEquals(a, null) || ReferenceEquals(b, null)) return false;
-            if (a.Count != b.Count) return false;
-            var aValues = a.OrderBy(i => i.Key).Select(i => i.Value);
-            var bValues = b.OrderBy(i => i.Key).Select(i => i.Value);
-            var values = aValues.Zip(bValues, (av, bv) => new {av, bv});
-            return values.Any(i => i.av != i.bv);
+            return !a.Except(b).Concat(b.Except(a)).Any();
         }
+
+        public override string ToString()
+        {
+            return string.Format("x{1} {0} {2}",
+                                 MenuItemId,
+                                 Quantity,
+                                 string.Join(", ", Options.Select(o => string.Format("{0}: {1}", o.Key, o.Value))));
+        }
+
     }
 
 }

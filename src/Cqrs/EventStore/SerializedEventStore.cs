@@ -22,13 +22,13 @@ namespace Cqrs.EventStore
 
         protected override IEnumerable<EventDescriptor> LoadEventDescriptorsForAggregate(Guid aggregateId)
         {
-            var serializedEvents = LoadSerializedEventsForAggregate(aggregateId);
+            var serializedEvents = LoadSerializedEvents(aggregateId);
             return serializedEvents
                 .Select(e => _serializer.Deserialize(e))
                 .ToArray();
         }
 
-        protected abstract IEnumerable<TSerialized> LoadSerializedEventsForAggregate(Guid aggregateId);
+        protected abstract IEnumerable<TSerialized> LoadSerializedEvents(Guid eventSourceId);
 
         protected override void PersistEventDescriptors(IEnumerable<EventDescriptor> newEventDescriptors, Guid aggregateId, int expectedVersion)
         {
@@ -38,7 +38,7 @@ namespace Cqrs.EventStore
             PersistSerializedEvents(serializedEvents, aggregateId, expectedVersion);
         }
 
-        protected abstract void PersistSerializedEvents(IEnumerable<TSerialized> serializedEvents, Guid aggregateid,
+        protected abstract void PersistSerializedEvents(IEnumerable<TSerialized> serializedEvents, Guid eventSourceId,
                                                         int expectedVersion);
 
     }

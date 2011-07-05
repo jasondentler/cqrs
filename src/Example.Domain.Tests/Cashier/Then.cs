@@ -9,6 +9,20 @@ using TechTalk.SpecFlow;
 
 namespace Example.Cashier
 {
+
+    public static class Extensions
+    {
+        internal static bool ContainsTheSameValuesAs<T>(this T[] a, T[] b)
+        {
+            if (ReferenceEquals(a, b))
+                return true;
+            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
+                return false;
+            return !a.Except(b).Concat(b.Except(a)).Any();
+        }
+
+    }
+
     [Binding]
     public class Then
     {
@@ -23,7 +37,7 @@ namespace Example.Cashier
                 new Dictionary<string, string>()
                     {
                         {"Size", "small"},
-                        {"Milk", "milk"}
+                        {"Milk", "whole"}
                     },
                 1);
 
@@ -57,7 +71,7 @@ namespace Example.Cashier
                 new Dictionary<string, string>()
                     {
                         {"Size", "small"},
-                        {"Milk", "whote"}
+                        {"Milk", "whole"}
                     }, 1);
             var e = ThenHelper.Event<OrderItemAdded>();
             var allItems = e.ExistingItems.Union(new[] { e.AddedItem });
@@ -73,7 +87,7 @@ namespace Example.Cashier
                 new Dictionary<string, string>()
                     {
                         {"Size", "large"},
-                        {"Milk", "whote"},
+                        {"Milk", "skim"},
                         {"Shot", "double"}
                     }, 1);
             var e = ThenHelper.Event<OrderItemAdded>();
@@ -107,7 +121,7 @@ namespace Example.Cashier
             e.CardHolderName.Should().Be.EqualTo("Jason Dentler");
             e.CardNumber.Should().Be.EqualTo("5444444444444444");
             e.DiningLocation.Should().Be.EqualTo(placedEvent.DiningLocation);
-            e.OrderItems.Should().Have.SameValuesAs(placedEvent.OrderItems);
+            e.OrderItems.ContainsTheSameValuesAs(placedEvent.OrderItems).Should().Be.True();
             e.Price.Should().Be.EqualTo(placedEvent.Price);
         }
 
@@ -125,6 +139,5 @@ namespace Example.Cashier
             cmd.BaristaOrderId.Should().Not.Be.EqualTo(Guid.Empty);
             cmd.BaristaOrderId.Should().Not.Be.EqualTo(orderId);
         }
-
     }
 }

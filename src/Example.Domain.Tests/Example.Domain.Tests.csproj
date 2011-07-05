@@ -157,6 +157,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cqrs.EventStore.MsSql\Cqrs.EventStore.MsSql.csproj">
+      <Project>{9F60E989-C47A-41BF-AD20-C051ECF894BD}</Project>
+      <Name>Cqrs.EventStore.MsSql</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cqrs.Ninject\Cqrs.Ninject.csproj">
       <Project>{107068A0-B235-48C9-A1F4-26A0DD96A536}</Project>
       <Name>Cqrs.Ninject</Name>

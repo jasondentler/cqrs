@@ -3,12 +3,14 @@ using Cqrs.Commanding;
 using Cqrs.Domain;
 using Cqrs.EventStore;
 using Cqrs.EventStore.Memory;
+using Cqrs.EventStore.MsSql;
 using Cqrs.Eventing;
 using Cqrs.Specs;
 using Example.Menu;
 using Example.Services;
 using Ninject;
 using Ninject.Modules;
+using EventDescriptor = Cqrs.EventStore.MsSql.EventDescriptor;
 
 namespace Example
 {
@@ -20,9 +22,7 @@ namespace Example
                 .To<TestRepository>()
                 .InSingletonScope();
 
-            Kernel.Bind<IEventStore>()
-                .To<MemoryEventStore>()
-                .InSingletonScope();
+            SetupMsSqlEventStore();
 
             Kernel.Bind<IEventPublisher>()
                 .To<NinjectEventPublisher>()
@@ -60,6 +60,20 @@ namespace Example
 
             Kernel.Bind<ICommandSender>()
                 .ToConstant(queuedSender);
+        }
+
+        private void SetupMsSqlEventStore()
+        {
+            Kernel.Bind<IEventStore>()
+                .To<MsSqlEventStore>()
+                .InSingletonScope();
+
+            Kernel.Bind<ITypeNameResolver>()
+                .To<SimpleTypeNameResolver>();
+
+            Kernel.Bind<ISerializer<EventDescriptor>>()
+                .To<JsonSerializer>();
+
         }
 
     }

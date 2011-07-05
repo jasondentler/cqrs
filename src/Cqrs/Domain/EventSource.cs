@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cqrs.Eventing;
 using DynUnit;
 
@@ -24,7 +25,12 @@ namespace Cqrs.Domain
 
         public virtual void LoadsFromHistory(IEnumerable<Event> history)
         {
-            foreach (var e in history) ApplyChange(e, false);
+            var eventHistory = history.Where(e => e != null).ToArray();
+            if (!eventHistory.Any())
+                return;
+            foreach (var e in eventHistory)
+                ApplyChange(e, false);
+            Version = eventHistory.Max(e => e.Version);
         }
 
         protected void ApplyChange(Event @event)
