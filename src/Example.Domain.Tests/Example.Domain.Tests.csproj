@@ -169,7 +169,7 @@
       <Project>{CDC6391F-3C03-45DA-9DB5-94F433CD7560}</Project>
       <Name>Cqrs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Example.CommandHandler\Example.Handlers.csproj">
+    <ProjectReference Include="..\Example.Handlers\Example.Handlers.csproj">
       <Project>{82AED54C-61B9-42F5-9D6E-D2897AF56F41}</Project>
       <Name>Example.Handlers</Name>
     </ProjectReference>

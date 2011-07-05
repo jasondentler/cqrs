@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Domain", "Example.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Domain.Tests", "Example.Domain.Tests\Example.Domain.Tests.csproj", "{26ABAC41-2681-4A63-89EB-24430636D5A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Handlers", "Example.CommandHandler\Example.Handlers.csproj", "{82AED54C-61B9-42F5-9D6E-D2897AF56F41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Handlers", "Example.Handlers\Example.Handlers.csproj", "{82AED54C-61B9-42F5-9D6E-D2897AF56F41}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cqrs.Specs", "Cqrs.Specs\Cqrs.Specs.csproj", "{AFBC5E46-5BC8-4E2A-9625-6A6E24CA4928}"
 EndProject
