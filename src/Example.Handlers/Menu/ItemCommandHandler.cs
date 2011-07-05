@@ -7,9 +7,9 @@ namespace Example.Menu
         IHandle<AddItem>,
         IHandle<AddCustomization>
     {
-        private readonly IRepository<Item> _repository;
+        private readonly IRepository _repository;
 
-        public ItemCommandHandler(IRepository<Item> repository)
+        public ItemCommandHandler(IRepository repository)
         {
             _repository = repository;
         }
@@ -22,7 +22,7 @@ namespace Example.Menu
 
         public void Handle(AddCustomization message)
         {
-            var item = _repository.GetById(message.MenuItemId);
+            var item = _repository.GetById<Item>(message.MenuItemId);
             item.AddCustomization(message.Name, message.Options);
             _repository.Save(item);
         }

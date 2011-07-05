@@ -10,10 +10,10 @@ namespace Example.Barista
         IHandle<FinishPreparingOrder>,
         IHandle<DeliverOrder>
     {
-        private readonly IRepository<Order> _repository;
+        private readonly IRepository _repository;
 
         public OrderCommandHandler(
-            IRepository<Order> repository)
+            IRepository repository)
         {
             _repository = repository;
         }
@@ -30,21 +30,21 @@ namespace Example.Barista
 
         public void Handle(BeginPreparingOrder message)
         {
-            var order = _repository.GetById(message.OrderId);
+            var order = _repository.GetById<Order>(message.OrderId);
             order.BeginPreparing();
             _repository.Save(order);
         }
 
         public void Handle(FinishPreparingOrder message)
         {
-            var order = _repository.GetById(message.OrderId);
+            var order = _repository.GetById<Order>(message.OrderId);
             order.FinishPreparing();
             _repository.Save(order); 
         }
 
         public void Handle(DeliverOrder message)
         {
-            var order = _repository.GetById(message.OrderId);
+            var order = _repository.GetById<Order>(message.OrderId);
             order.Deliver();
             _repository.Save(order);
         }

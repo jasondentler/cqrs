@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CDC6391F-3C03-45DA-9DB5-94F433CD7560}</ProjectGuid>
+    <ProjectGuid>{9F60E989-C47A-41BF-AD20-C051ECF894BD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cqrs</RootNamespace>
-    <AssemblyName>Cqrs</AssemblyName>
+    <RootNamespace>Cqrs.EventStore.MsSql</RootNamespace>
+    <AssemblyName>Cqrs.EventStore.MsSql</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,12 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DynUnit">
-      <HintPath>..\packages\DynUnit.1.0\lib\net40\DynUnit.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,31 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commanding\Command.cs" />
-    <Compile Include="Commanding\CommandNotHandledException.cs" />
-    <Compile Include="Commanding\ICommandSender.cs" />
-    <Compile Include="Domain\AggregateRoot.cs" />
-    <Compile Include="Domain\EventSource.cs" />
-    <Compile Include="Domain\IEventSource.cs" />
-    <Compile Include="Domain\InvalidStateException.cs" />
-    <Compile Include="Domain\IRepository.cs" />
-    <Compile Include="Domain\Repository.cs" />
-    <Compile Include="Sagas\ISaga.cs" />
-    <Compile Include="Sagas\Saga.cs" />
-    <Compile Include="Eventing\Event.cs" />
-    <Compile Include="Eventing\IEventPublisher.cs" />
-    <Compile Include="EventStore\AggregateNotFoundException.cs" />
-    <Compile Include="EventStore\BaseEventStore.cs" />
-    <Compile Include="EventStore\ConcurrencyException.cs" />
-    <Compile Include="EventStore\EventDescriptor.cs" />
-    <Compile Include="EventStore\IEventStore.cs" />
-    <Compile Include="EventStore\Memory\MemoryEventStore.cs" />
-    <Compile Include="IHandle.cs" />
-    <Compile Include="IMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Cqrs\Cqrs.csproj">
+      <Project>{CDC6391F-3C03-45DA-9DB5-94F433CD7560}</Project>
+      <Name>Cqrs</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -80,7 +56,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="BeforeBuild">
-    <Exec Condition="Exists('$(ProjectDir)packages.config')" Command="&quot;$(SolutionDir)..\Tools\nuget.exe&quot; install &quot;$(ProjectDir)packages.config&quot; -o &quot;$(SolutionDir)Packages&quot;" />
-  </Target>
 </Project>

@@ -5,18 +5,17 @@ using Cqrs.Sagas;
 
 namespace Cqrs.Specs
 {
-    public class TestRepository<TEventSource> :
-        IRepository<TEventSource> where TEventSource : EventSource, new()
+    public class TestRepository : IRepository
     {
 
-        private readonly Repository<TEventSource> _repository;
+        private readonly Repository _repository;
 
         public TestRepository(IEventStore eventStore)
         {
-            _repository = new Repository<TEventSource>(eventStore);
+            _repository = new Repository(eventStore);
         }
 
-        public void Save(EventSource eventSource)
+        public void Save(IEventSource eventSource)
         {
 
             if (eventSource as Saga == null)
@@ -26,9 +25,9 @@ namespace Cqrs.Specs
             _repository.Save(eventSource);
         }
 
-        public TEventSource GetById(Guid id)
+        public TEventSource GetById<TEventSource>(Guid id) where TEventSource : class, IEventSource
         {
-            return _repository.GetById(id);
+            return _repository.GetById<TEventSource>(id);
         }
 
     }

@@ -7,10 +7,10 @@ namespace Example
     public class CashierBaristaCoordinatorHandler
         : IHandle<OrderPaid>
     {
-        private readonly IRepository<CashierBaristaCoordinator> _repository;
+        private readonly IRepository _repository;
 
         public CashierBaristaCoordinatorHandler(
-            IRepository<CashierBaristaCoordinator> repository)
+            IRepository repository)
         {
             _repository = repository;
         }

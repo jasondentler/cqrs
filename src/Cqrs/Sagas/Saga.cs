@@ -14,7 +14,7 @@ namespace Cqrs.Sagas
             _dispatches.Add(dispatch);
         }
 
-        public IEnumerable<Command> GetDispatches()
+        public virtual IEnumerable<Command> GetDispatches()
         {
             return _dispatches;
         }

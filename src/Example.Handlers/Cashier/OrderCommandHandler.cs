@@ -10,11 +10,11 @@ namespace Example.Cashier
         IHandle<CancelOrder>,
         IHandle<PayOrder>
     {
-        private readonly IRepository<Order> _repository;
+        private readonly IRepository _repository;
         private readonly IProductService _productService;
 
         public OrderCommandHandler(
-            IRepository<Order> repository,
+            IRepository repository,
             IProductService productService)
         {
             _repository = repository;
@@ -43,21 +43,21 @@ namespace Example.Cashier
         {
             var menuItemId = message.Item.MenuItemId;
             var product = _productService.GetProductInfo(menuItemId);
-            var order = _repository.GetById(message.OrderId);
+            var order = _repository.GetById<Order>(message.OrderId);
             order.AddItem(message.Item, product);
             _repository.Save(order);
         }
 
         public void Handle(CancelOrder message)
         {
-            var order = _repository.GetById(message.OrderId);
+            var order = _repository.GetById<Order>(message.OrderId);
             order.Cancel();
             _repository.Save(order);
         }
 
         public void Handle(PayOrder message)
         {
-            var order = _repository.GetById(message.OrderId);
+            var order = _repository.GetById<Order>(message.OrderId);
             order.Pay(message.CardHolderName, message.CardNumber);
             _repository.Save(order);
         }

@@ -5,14 +5,14 @@ using DynUnit;
 
 namespace Cqrs.Domain
 {
-    public abstract class EventSource
+    public abstract class EventSource : IEventSource
     {
         private readonly List<Event> _changes = new List<Event>();
 
         public virtual Guid Id { get; protected set; }
-        public int Version { get; internal set; }
+        public virtual int Version { get; internal set; }
 
-        public IEnumerable<Event> GetUncommittedChanges()
+        public virtual IEnumerable<Event> GetUncommittedChanges()
         {
             return _changes;
         }
@@ -22,7 +22,7 @@ namespace Cqrs.Domain
             _changes.Clear();
         }
 
-        public void LoadsFromHistory(IEnumerable<Event> history)
+        public virtual void LoadsFromHistory(IEnumerable<Event> history)
         {
             foreach (var e in history) ApplyChange(e, false);
         }

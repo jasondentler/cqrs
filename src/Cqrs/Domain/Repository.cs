@@ -4,7 +4,7 @@ using Cqrs.Sagas;
 
 namespace Cqrs.Domain
 {
-    public class Repository<T> : IRepository<T> where T : EventSource, new() //shortcut you can do as you see fit with new()
+    public class Repository : IRepository
     {
         private readonly IEventStore _storage;
 
@@ -13,9 +13,9 @@ namespace Cqrs.Domain
             _storage = storage;
         }
 
-        public void Save(EventSource eventSource)
+        public void Save(IEventSource eventSource)
         {
-            var saga = eventSource as Saga;
+            var saga = eventSource as ISaga;
             if (saga != null)
             {
                 SaveSaga(saga);
@@ -26,21 +26,21 @@ namespace Cqrs.Domain
             }
         }
 
-        private void SaveSaga(Saga saga)
+        private void SaveSaga(ISaga saga)
         {
             _storage.SaveEventsFromSaga(saga.Id, saga.GetUncommittedChanges(), saga.Version, saga.GetDispatches());
             saga.MarkChangesAsCommitted();
         }
 
-        private void SaveEventSource(EventSource eventSource)
+        private void SaveEventSource(IEventSource eventSource)
         {
             _storage.SaveEventsFromAggregate(eventSource.Id, eventSource.GetUncommittedChanges(), eventSource.Version);
             eventSource.MarkChangesAsCommitted();
         }
 
-        public T GetById(Guid id)
+        public T GetById<T>(Guid id) where T : class, IEventSource
         {
-            var obj = new T();//lots of ways to do this
+            var obj = Activator.CreateInstance<T>();//lots of ways to do this
             var e = _storage.GetEventsForAggregate(id);
             obj.LoadsFromHistory(e);
             return obj;

@@ -16,8 +16,8 @@ namespace Example
     {
         public override void Load()
         {
-            Kernel.Bind(typeof (IRepository<>))
-                .To(typeof (TestRepository<>))
+            Kernel.Bind<IRepository>()
+                .To<TestRepository>()
                 .InSingletonScope();
 
             Kernel.Bind<IEventStore>()
